@@ -8,24 +8,29 @@
 ##    cidr_block = Set the cidr notation for the netowrk.
 ##      example: "10.0.0.0/16"
 ##    az_counts = Number of AWS Availability Zones
+##    cs_user = Customer Success Engineers first-last name.
 ############### VPC variables #######################################
 variable "vpc" {
   description = "Variables needed to deploy the VPC, Subnets etc."
   type        = map(any)
   default = {
     vpc = {
-      name              = ""
-      aws_profile       = ""
-      region            = ""
-      cidr_block        = ""
-      az_counts         = 3
-      user_aws_arn      = ""
+      name                 = ""
+      aws_profile          = ""
+      region               = ""
+      cidr_block           = ""
+      az_counts            = 3
+      cs_user_aws_arn      = ""
+      cs_user_aws_username = ""
+    }
   }
 }
 #####################################################################
 ##  Prior to running this terraform code you should set the following
 ##  values for the variable 'launch_template':
 ##    labels = To set the labels on the worker nodes in the cluster
+##      with the CSE's first and last name.
+##        example: customer_success_agent = first-last
 ##    instance_size = Set an AWS Instance Type.
 ##  Optional values that can be changed:
 ##    key_name = An AWS ssh key name for use to log into the nodes
@@ -40,8 +45,8 @@ variable "launch_template" {
       labels                    = { }
       taints                    = {}
       bottlerocket_admin_source = ""
-      instance_size             = ""
-      key_name                  = ""
+      instance_size             = "t3.small"
+      key_name                  = "lwcs-bottlerocket-jon-mikula"
       root_volume_size          = 40
     }
   }

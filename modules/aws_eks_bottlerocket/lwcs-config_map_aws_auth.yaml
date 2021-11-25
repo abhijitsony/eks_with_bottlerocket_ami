@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapUsers: |
+  - userarn: arn:aws:iam::807828924102:user/jon.mikula
+    username: jon.mikula
+    groups:
+    - system:bootstrappers
+    - system:nodes
+  mapRoles: |
+    - rolearn: arn:aws:iam::807828924102:role/EKS-lwcs-bottlerocket-jon-mikula-worker-node-role
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
